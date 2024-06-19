@@ -56,7 +56,7 @@ class GuestPanel:
                                      height=8)
 
         self.hotel_view = MyButton(self.win,
-                                   text="View Rooms",
+                                   text="View Hotels",
                                    x=0, y=30,
                                    command=self.hotel_view,
                                    width=18,
