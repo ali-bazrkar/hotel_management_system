@@ -34,6 +34,7 @@ class UserManagement:
             self.username.variable.set(item[3])
             self.password.variable.set(item[4])
             self.role.variable.set(item[5])
+            self.username_holder.set(item[3])
         else:
             pass
 
@@ -57,17 +58,29 @@ class UserManagement:
                     msg.showerror("Save Error", message)
 
     def edit_click(self):
-        status, message = UserController.edit(self.id.get(),
-                                              self.name.variable.get(),
-                                              self.family.variable.get(),
-                                              self.username.variable.get(),
-                                              self.password.variable.get(),
-                                              self.role.variable.get())
-        if status:
-            msg.showinfo("Edit", "Edited Successfully.")
-            self.reset_form()
+        if self.username_holder.get() != self.username.variable.get():
+            check, item = UserController.find_by_username(self.username.variable.get())
+            if check:
+                msg.showerror('Error', 'This username is taken.')
+            else:
+                status, message = UserController.edit(self.id.get(),
+                                                      self.name.variable.get(),
+                                                      self.family.variable.get(),
+                                                      self.username.variable.get(),
+                                                      self.password.variable.get(),
+                                                      self.role.variable.get())
+                if status:
+                    msg.showinfo("Edit", "Edited Successfully.")
+                    self.reset_form()
+                else:
+                    msg.showerror("Edit Error", message)
         else:
-            msg.showerror("Edit Error", message)
+            status, message = UserController.edit(self.id.get(),
+                                                  self.name.variable.get(),
+                                                  self.family.variable.get(),
+                                                  self.username.variable.get(),
+                                                  self.password.variable.get(),
+                                                  'guest')
 
     def remove_click(self):
         if self.role.variable.get() != 'admin':
@@ -102,6 +115,7 @@ class UserManagement:
 
         # WIDGETS
         self.id = StringVar()
+        self.username_holder = StringVar()
         self.name = TextWithLabel(self.win, "Name", 20, 20, "dark", 70)
         self.family = TextWithLabel(self.win, "Family", 20, 60, "dark", 70)
         self.username = TextWithLabel(self.win, "Username", 20, 100, "dark", 70)
