@@ -71,9 +71,9 @@ class BookView:
     def __init__(self, user):
         self.user = user
         self.win = Tk()
-        self.win.title(f"Book Management")
+        self.win.title(f"Book View")
         self.win.resizable(width=False, height=False)
-        self.win.configure(bg=dark_theme)
+        self.win.configure(bg=theme)
 
         # CENTER FORM
         x = (self.win.winfo_screenwidth() - 980) // 2
@@ -88,17 +88,17 @@ class BookView:
         self.temp_holder = StringVar()
 
         # WIDGETS
-        self.name = TextWithLabel(self.win, "Name", 260, 250, "dark", 55, True)
-        self.family = TextWithLabel(self.win, "Family", 260, 295, "dark", 55, True)
-        self.room_number = TextWithLabel(self.win, "Room Number", 485, 250, "dark", 90, True)
-        self.room_type = TextWithLabel(self.win, "Room Type", 485, 295, "dark", 90, True)
-        self.hotel_name = TextWithLabel(self.win, "Hotel Name", 740, 250, "dark", 80, True)
+        self.name = TextWithLabel(self.win, "Name", 260, 250, "white", 55, True)
+        self.family = TextWithLabel(self.win, "Family", 260, 295, "white", 55, True)
+        self.room_number = TextWithLabel(self.win, "Room Number", 485, 250, "white", 90, True)
+        self.room_type = TextWithLabel(self.win, "Room Type", 485, 295, "white", 90, True)
+        self.hotel_name = TextWithLabel(self.win, "Hotel Name", 740, 250, "white", 80, True)
 
         # Combobox Dates
-        Label(self.win, text="Start Date", background=dark_theme, foreground=entry).place(x=20, y=250)
-        self.start_date = PersianCalendar(self.win, 85, 250, theme_color='dark')
-        Label(self.win, text="End Date", background=dark_theme, foreground=entry).place(x=20, y=295)
-        self.end_date = PersianCalendar(self.win, 85, 295, theme_color='dark')
+        Label(self.win, text="Start Date", background=theme, foreground=dark_theme).place(x=20, y=250)
+        self.start_date = PersianCalendar(self.win, 85, 250, theme_color='white')
+        Label(self.win, text="End Date", background=theme, foreground=dark_theme).place(x=20, y=295)
+        self.end_date = PersianCalendar(self.win, 85, 295, theme_color='white')
 
         self.start_date.set_date(datetime.strptime("2021-03-21", "%Y-%m-%d"))
         self.end_date.set_date(datetime.strptime("2021-03-21", "%Y-%m-%d"))
@@ -114,13 +114,13 @@ class BookView:
                            20,
                            self.select_row,
                            height=5,
-                           theme_color="dark")
+                           theme_color="white")
 
         self.reset = MyButton(self.win,
                               text="Reset",
                               x=735, y=295,
                               command=self.reset_form,
-                              theme_color="dark",
+                              theme_color="white",
                               style="flat",
                               pack=False,
                               height=3,
@@ -130,7 +130,7 @@ class BookView:
                              text="Edit",
                              x=815, y=295,
                              command=self.edit_click,
-                             theme_color="dark",
+                             theme_color="white",
                              style="flat",
                              pack=False,
                              height=3,
@@ -140,7 +140,7 @@ class BookView:
                                text="Remove",
                                x=895, y=295,
                                command=self.remove_click,
-                               theme_color="dark",
+                               theme_color="white",
                                style="flat",
                                pack=False,
                                height=3,

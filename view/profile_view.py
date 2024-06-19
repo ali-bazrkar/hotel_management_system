@@ -11,19 +11,37 @@ class ProfileView:
         self.family.variable.set(self.user[0].family)
         self.username.variable.set(self.user[0].username)
         self.password.variable.set(self.user[0].password)
+        self.username_holder.set(self.user[0].username)
 
     def edit_click(self):
-        status, message = UserController.edit(self.id.get(),
-                                              self.name.variable.get(),
-                                              self.family.variable.get(),
-                                              self.username.variable.get(),
-                                              self.password.variable.get(),
-                                              'guest')
-        if status:
-            msg.showinfo("Edit", "Edited Successfully.")
-            self.reset_form()
+        if self.username_holder.get() != self.username.variable.get():
+            check, item = UserController.find_by_username(self.username.variable.get())
+            if check:
+                msg.showerror('Error', 'This username is taken.')
+            else:
+                status, message = UserController.edit(self.id.get(),
+                                                      self.name.variable.get(),
+                                                      self.family.variable.get(),
+                                                      self.username.variable.get(),
+                                                      self.password.variable.get(),
+                                                      'guest')
+                if status:
+                    msg.showinfo("Edit", "Edited Successfully.")
+                    self.reset_form()
+                else:
+                    msg.showerror("Edit Error", message)
         else:
-            msg.showerror("Edit Error", message)
+            status, message = UserController.edit(self.id.get(),
+                                                  self.name.variable.get(),
+                                                  self.family.variable.get(),
+                                                  self.username.variable.get(),
+                                                  self.password.variable.get(),
+                                                  'guest')
+            if status:
+                msg.showinfo("Edit", "Edited Successfully.")
+                self.reset_form()
+            else:
+                msg.showerror("Edit Error", message)
 
     def close_win(self):
         from view import GuestPanel
@@ -35,6 +53,7 @@ class ProfileView:
         self.win = Tk()
         self.win.title("Guest Profile")
         self.win.protocol("WM_DELETE_WINDOW", self.close_win)
+        self.username_holder = StringVar()
 
         # CENTER FORM
         x = (self.win.winfo_screenwidth() - 250) // 2
