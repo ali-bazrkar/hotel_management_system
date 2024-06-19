@@ -37,21 +37,24 @@ class UserManagement:
         else:
             pass
 
-    def save_click(self):
+        def save_click(self):
         check, current = UserController.find_by_username(self.username.variable.get())
         if check:
             msg.showerror("Save Error", 'this username is already taken.')
         else:
-            status, message = UserController.save(self.name.variable.get(),
-                                                  self.family.variable.get(),
-                                                  self.username.variable.get(),
-                                                  self.password.variable.get(),
-                                                  self.role.variable.get().lower())
-            if status:
-                msg.showinfo("Save", "Saved Successfully.")
-                self.reset_form()
+            if self.role.variable.get() == 'admin':
+                msg.showwarning("Warning", 'You dont have permission to add an admin user')
             else:
-                msg.showerror("Save Error", message)
+                status, message = UserController.save(self.name.variable.get(),
+                                                      self.family.variable.get(),
+                                                      self.username.variable.get(),
+                                                      self.password.variable.get(),
+                                                      self.role.variable.get().lower())
+                if status:
+                    msg.showinfo("Save", "Saved Successfully.")
+                    self.reset_form()
+                else:
+                    msg.showerror("Save Error", message)
 
     def edit_click(self):
         status, message = UserController.edit(self.id.get(),
