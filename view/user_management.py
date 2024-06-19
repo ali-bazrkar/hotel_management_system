@@ -37,7 +37,7 @@ class UserManagement:
         else:
             pass
 
-        def save_click(self):
+    def save_click(self):
         check, current = UserController.find_by_username(self.username.variable.get())
         if check:
             msg.showerror("Save Error", 'this username is already taken.')
