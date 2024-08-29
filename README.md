@@ -1,5 +1,4 @@
-# MFT python Project
-### Hotel Management System
+# Hotel Management System
 Ali Bazkar
 
 ### Featured Concepts :
